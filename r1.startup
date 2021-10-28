@@ -1,0 +1,17 @@
+ifconfig eth0 10.10.10.1/24 
+
+route add -net 10.0.0.0/24 gw 10.10.10.5
+route add -net 192.168.0.0/24 gw 10.10.10.5
+
+route add -host 10.10.10.2 gw 10.10.10.1 dev eth0
+route add -net 10.10.10.0/24 gw 10.10.10.2 dev eth0
+
+route add -host 10.10.10.3 gw 10.10.10.1 dev eth0
+route add -net 10.10.10.0/24 gw 10.10.10.3 dev eth0
+
+route add -host 10.10.10.4 gw 10.10.10.1 dev eth0
+route add -net 10.10.10.0/24 gw 10.10.10.4 dev eth0
+
+iptables -t nat -A POSTROUTING -o eth1 -j MASQUERADE
+
+
